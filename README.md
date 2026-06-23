@@ -1,18 +1,11 @@
 # GestionScolaireFINAL
 
-Application console de gestion scolaire — POO C# / .NET 10
-
-## Prérequis
-
-- [.NET 10 SDK](https://dotnet.microsoft.com/en-us/download/dotnet/10.0)
-- Visual Studio Code avec l'extension C# Dev Kit
+Application console de gestion scolaire — POO C# 
 
 ## Lancer le projet
 
-```bash
 dotnet restore
 dotnet run
-```
 
 ## Structure
 
