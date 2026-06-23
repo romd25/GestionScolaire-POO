@@ -1,0 +1,17 @@
+C:\Users\theor\Desktop\GestionScolaireFINAL\bin\Debug\net10.0\GestionScolaireFINAL.exe
+C:\Users\theor\Desktop\GestionScolaireFINAL\bin\Debug\net10.0\GestionScolaireFINAL.deps.json
+C:\Users\theor\Desktop\GestionScolaireFINAL\bin\Debug\net10.0\GestionScolaireFINAL.runtimeconfig.json
+C:\Users\theor\Desktop\GestionScolaireFINAL\bin\Debug\net10.0\GestionScolaireFINAL.dll
+C:\Users\theor\Desktop\GestionScolaireFINAL\bin\Debug\net10.0\GestionScolaireFINAL.pdb
+C:\Users\theor\Desktop\GestionScolaireFINAL\obj\Debug\net10.0\GestionScolaireFINAL.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\theor\Desktop\GestionScolaireFINAL\obj\Debug\net10.0\GestionScolaireFINAL.AssemblyInfoInputs.cache
+C:\Users\theor\Desktop\GestionScolaireFINAL\obj\Debug\net10.0\GestionScolaireFINAL.AssemblyInfo.cs
+C:\Users\theor\Desktop\GestionScolaireFINAL\obj\Debug\net10.0\GestionScolaireFINAL.csproj.CoreCompileInputs.cache
+C:\Users\theor\Desktop\GestionScolaireFINAL\obj\Debug\net10.0\GestionScolaireFINAL.dll
+C:\Users\theor\Desktop\GestionScolaireFINAL\obj\Debug\net10.0\refint\GestionScolaireFINAL.dll
+C:\Users\theor\Desktop\GestionScolaireFINAL\obj\Debug\net10.0\GestionScolaireFINAL.pdb
+C:\Users\theor\Desktop\GestionScolaireFINAL\obj\Debug\net10.0\GestionScolaireFINAL.genruntimeconfig.cache
+C:\Users\theor\Desktop\GestionScolaireFINAL\obj\Debug\net10.0\ref\GestionScolaireFINAL.dll
+C:\Users\theor\Desktop\GestionScolaireFINAL\bin\Debug\net10.0\Spectre.Console.dll
+C:\Users\theor\Desktop\GestionScolaireFINAL\obj\Debug\net10.0\GestionScolaireFINAL.csproj.AssemblyReference.cache
+C:\Users\theor\Desktop\GestionScolaireFINAL\obj\Debug\net10.0\GestionS.57FF749B.Up2Date

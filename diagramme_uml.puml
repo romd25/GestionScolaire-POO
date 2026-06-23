@@ -1,0 +1,197 @@
+@startuml GestionScolaireFINAL
+
+skinparam classAttributeIconSize 0
+skinparam classFontSize 12
+skinparam packageStyle rectangle
+
+package "Models" {
+
+  abstract class Personne {
+    + Nom : string <<get; private set>>
+    + Prenom : string <<get; private set>>
+    + Email : string <<get; private set>>
+    + NomComplet : string <<get>>
+    + {abstract} GetRole() : string
+    + ToString() : string
+  }
+
+  class Etudiant {
+    - _compteur : int <<static>>
+    - _notes : List<Note>
+    - _observateurs : List<IObservateurEtudiant>
+    + Matricule : string <<get>>
+    + Annee : int <<get; set>>
+    + Notes : IReadOnlyList<Note> <<get>>
+    + GetRole() : string
+    + AjouterNote(note : Note) : void
+    + CalculerMoyenne() : double
+    + AjouterObservateur(obs : IObservateurEtudiant) : void
+    + ToString() : string
+  }
+
+  class Professeur {
+    - _compteur : int <<static>>
+    - _cours : List<Cours>
+    + Code : string <<get>>
+    + Specialite : string <<get; private set>>
+    + Cours : IReadOnlyList<Cours> <<get>>
+    + GetRole() : string
+    + AjouterCours(cours : Cours) : void
+    + ToString() : string
+  }
+
+  class Cours {
+    - _compteur : int <<static>>
+    - _inscrits : List<Etudiant>
+    + Code : string <<get>>
+    + Intitule : string <<get; set>>
+    + Coefficient : double <<get; set>>
+    + Titulaire : Professeur? <<get; private set>>
+    + Inscrits : IReadOnlyList<Etudiant> <<get>>
+    + AssignerProfesseur(prof : Professeur) : void
+    + InscrireEtudiant(etudiant : Etudiant) : void
+    + ToString() : string
+  }
+
+  class Note {
+    - _valeur : double
+    + Cours : Cours <<get>>
+    + DateSaisie : DateTime <<get>>
+    + Commentaire : string? <<get; set>>
+    + Valeur : double <<get; set>>
+    + Mention() : string
+    + {static} MentionDepuis(valeur : double) : string
+    + ToString() : string
+  }
+
+  class Classe {
+    - _etudiants : List<Etudiant>
+    + Nom : string <<get; private set>>
+    + Annee : int <<get; private set>>
+    + Etudiants : IReadOnlyList<Etudiant> <<get>>
+    + AjouterEtudiant(etudiant : Etudiant) : void
+    + MoyenneClasse() : double
+    + MeilleurEtudiant() : Etudiant?
+    + ToString() : string
+  }
+
+}
+
+package "Patterns (Observer)" {
+
+  interface IObservateurEtudiant {
+    + SurNouvelleNote(etudiant : Etudiant, note : Note) : void
+  }
+
+  class AlerteNoteBasse {
+    - _seuil : double
+    - _alertes : List<string>
+    + Alertes : IReadOnlyList<string> <<get>>
+    + SurNouvelleNote(etudiant : Etudiant, note : Note) : void
+  }
+
+}
+
+package "Patterns (Strategy)" {
+
+  interface IStrategieTri {
+    + Description : string <<get>>
+    + Trier(etudiants : IEnumerable<Etudiant>) : IEnumerable<Etudiant>
+  }
+
+  class TriParMoyenne {
+    + Description : string <<get>>
+    + Trier(etudiants) : IEnumerable<Etudiant>
+  }
+
+  class TriAlphabetique {
+    + Description : string <<get>>
+    + Trier(etudiants) : IEnumerable<Etudiant>
+  }
+
+  class TriParAnnee {
+    + Description : string <<get>>
+    + Trier(etudiants) : IEnumerable<Etudiant>
+  }
+
+  class ClassementEtudiants {
+    - _strategie : IStrategieTri
+    + StrategieActive : string <<get>>
+    + ChangerStrategie(nouvelleStrategie : IStrategieTri) : void
+    + Classer(etudiants : IEnumerable<Etudiant>) : IEnumerable<Etudiant>
+  }
+
+}
+
+package "Patterns (Decorator)" {
+
+  abstract class BulletinDecorator {
+    # _etudiant : Etudiant
+    + Etudiant : Etudiant <<get>>
+    + {abstract} Generer() : string
+  }
+
+  class BulletinSimple {
+    + Generer() : string
+  }
+
+  class BulletinAvecMoyenne {
+    - _base : BulletinDecorator
+    + Generer() : string
+  }
+
+  class BulletinAvecEntete {
+    - _base : BulletinDecorator
+    - _etablissement : string
+    + Generer() : string
+  }
+
+}
+
+package "Service" {
+
+  class GestionnaireEcole {
+    - _etudiants : List<Etudiant>
+    - _professeurs : List<Professeur>
+    - _cours : List<Cours>
+    + Alertes : AlerteNoteBasse <<get>>
+    + Etudiants : IReadOnlyList<Etudiant> <<get>>
+    + Professeurs : IReadOnlyList<Professeur> <<get>>
+    + Cours : IReadOnlyList<Cours> <<get>>
+    + AjouterEtudiant(...) : Etudiant
+    + AjouterProfesseur(...) : Professeur
+    + AjouterCours(...) : Cours
+    + TrouverEtudiant(matricule : string) : Etudiant?
+    + TrouverCours(code : string) : Cours?
+    + SaisirNote(...) : void
+    + MoyenneGlobale() : double
+  }
+
+}
+
+' Héritage
+Personne        <|-- Etudiant
+Personne        <|-- Professeur
+IObservateurEtudiant <|.. AlerteNoteBasse
+IStrategieTri   <|.. TriParMoyenne
+IStrategieTri   <|.. TriAlphabetique
+IStrategieTri   <|.. TriParAnnee
+BulletinDecorator <|-- BulletinSimple
+BulletinDecorator <|-- BulletinAvecMoyenne
+BulletinDecorator <|-- BulletinAvecEntete
+
+' Associations
+Etudiant        "1" o-- "0..*" Note            : possède
+Note            "1" -->  "1"   Cours            : concerne
+Cours           "0..*" --> "0..1" Professeur    : titulaire
+Classe          "1" o-- "0..*" Etudiant         : regroupe
+Etudiant        "1" --> "0..*" IObservateurEtudiant : notifie
+ClassementEtudiants --> IStrategieTri           : utilise
+BulletinAvecMoyenne --> BulletinDecorator       : décore
+BulletinAvecEntete  --> BulletinDecorator       : décore
+GestionnaireEcole --> AlerteNoteBasse           : possède
+GestionnaireEcole --> Etudiant                  : gère
+GestionnaireEcole --> Professeur                : gère
+GestionnaireEcole --> Cours                     : gère
+
+@enduml
